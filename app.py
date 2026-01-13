@@ -40,7 +40,7 @@ if st.button("Check News"):
                 st.error("The news is fake! 🚨")
         except Exception as e:
             st.error(f"An error occurred during prediction: {e}")
-    else:
-        st.warning("Please enter some text to analyze.")
+else:
+    st.warning("Please enter some text to analyze.")
 
         
