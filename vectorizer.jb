@@ -3,3 +3,4 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Assuming 'tfidf' is your trained vectorizer
 joblib.dump(tfidf, 'vectorizer.jb')
+  
