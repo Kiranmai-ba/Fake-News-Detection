@@ -1,10 +1,8 @@
-# Fake-News-Detection
-from sklearn.feature_extraction.text import TfidfVectorizer
+import os
 import joblib
 
-texts = ["sample text", "another example"]
-vectorizer = TfidfVectorizer()
-vectorizer.fit(texts)
+# Get the directory where the current script is located
+base_path = os.path.dirname(__file__)
+file_path = os.path.join(base_path, 'vectorizer.jb')
 
-joblib.dump(vectorizer, "vectorizer.jb")
-
+model = joblib.load(file_path)
