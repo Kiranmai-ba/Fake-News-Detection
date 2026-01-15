@@ -1,8 +1,8 @@
 import os
 import joblib
 
-# Get the directory where the current script is located
-base_path = os.path.dirname(__file__)
-file_path = os.path.join(base_path, 'vectorizer.jb')
+# This finds the absolute path to the folder where your script is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+vectorizer_path = os.path.join(BASE_DIR, 'vectorizer.jb')
 
-model = joblib.load(file_path)
+vectorizer = joblib.load(vectorizer_path)
