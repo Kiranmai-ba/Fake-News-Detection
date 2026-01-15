@@ -1,12 +1,14 @@
 # Fake-News-Detection
-import streamlit as st
+import os
 import joblib
-from pathlib import Path
+import streamlit as st
 
-# 1. Get the path
-BASE_DIR = Path(__file__).resolve().parent
-VECTORIZER_PATH = BASE_DIR / "vectorizer.jb"
-MODEL_PATH = BASE_DIR / "model.jb" 
+# Get the directory where app.py is located
+curr_path = os.path.dirname(os.path.abspath(__file__))
+
+# Join the path with the filename
+vectorizer = joblib.load(os.path.join(curr_path, "vectorizer.jb"))
+model = joblib.load(os.path.join(curr_path, "lr_model.jb"))
 
 @st.cache_resource
 def load_models():
