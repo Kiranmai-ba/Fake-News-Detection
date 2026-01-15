@@ -1,36 +1,36 @@
 # Fake-News-Detection
-import streamlit as st 
+import streamlit as st
 import joblib
 import os
+from pathlib import Path
 
-# Use relative paths to find the model files
-current_dir = os.path.dirname(os.path.abspath(__file__))
-vectorizer_path = os.path.join(current_dir, 'vectorizer.jb')
-model_path = os.path.join(current_dir, 'lr_model.jb')
+# 1. Define the paths correctly
+# This looks for the files in the same folder as app.py
+current_dir = Path(__file__).parent
+VECTORIZER_PATH = current_dir / "vectorizer.jb"
+MODEL_PATH = current_dir / "lr_model.jb"
 
 @st.cache_resource
 def load_models():
-    if not VECTORIZER_PATH.exists():
+    # Now VECTORIZER_PATH is defined and can be checked
+    if not VECTORIZER_PATH.exists() or not MODEL_PATH.exists():
+        st.error(f"Files not found! Looking for: {VECTORIZER_PATH}")
         return None, None
     
     try:
         vectorizer = joblib.load(VECTORIZER_PATH)
         model = joblib.load(MODEL_PATH)
         return vectorizer, model
-    except:
+    except Exception as e:
+        st.error(f"Error loading models: {e}")
         return None, None
 
-# 2. Load
+# 2. Load the models
 vectorizer, model = load_models()
 
-# 3. UI
+# 3. UI logic
+if vectorizer is None or model is None:
+    st.stop() # Stops the app here if files are missing so you don't get more errors
+
 st.title("Fake News Detector")
-if vectorizer is None:
-    st.error("Error: 'vectorizer.jb' not found in GitHub. Please upload the file.")
-else:
-    user_input = st.text_area("Enter a News Article below:")
-    if st.button("Check News"):
-        if user_input:
-            data = vectorizer.transform([user_input])
-            prediction = model.predict(data)
-            st.success(f"Result: {prediction[0]}")
+# ... rest of your code
