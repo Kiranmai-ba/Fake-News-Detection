@@ -1,4 +1,5 @@
 import joblib
+import os
 
 # Load the saved vectorizer and the trained fake news detection model
 vectorizer = joblib.load('./vectorizer.jb')
